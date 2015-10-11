@@ -40,7 +40,7 @@ resultados
 Por fim, um famoso trabalho que usa o contexto de tempo para recomendação se dá na pesquisa \cite{koren2010collaborative}, que apresenta o modelo de recomendação vencedor
 do concurso criado pelo Netflix para aumentar a acurácia de suas recomendações de filme. A pesquisa citada usa como diferencial a análise do tempo da avaliação dos filmes
 realizados pelos usuários em um modelo similar a pesquisa de \cite{basile2015modeling}
-    
+
 
 \section{Hipóteses}
 
@@ -53,7 +53,7 @@ pacotes no sistema, e priorizar os pacotes mais recentemente usados na criação
 do perfil de usuário, acredita-se que a mesma irá produzir um perfil mais
 consistente do usuário, gerando assim recomendações mais efetivas.\item
 \textit{\textbf{Uma abordagem por aprendizado de máquina irá se comportar melhor
-        que uma determinística para o problema proposto}} 
+        que uma determinística para o problema proposto}}
 Considerando os dados presentes em pacote Debian que podem ser
 usados para prover a recomendação, pode-se entender que o uso de uma abordagem
 por aprendizado de máquina irá prover melhores resultados, devido a possível
@@ -114,7 +114,7 @@ Com a comparações de resultados feita, a mesma deve ser analisada e conclusõe
 
 \section{Teste de hipótese}
 
-O projeto selecionado para testar as hipóteses foi o \textit{AppRecommender}, o recomendador de pacotes para distribuições Debian que implementa tanto estratégias de recomendação por conteúdo quanto colaborativas \cite{araujo2011apprecommender}. 
+O projeto selecionado para testar as hipóteses foi o \textit{AppRecommender}, o recomendador de pacotes para distribuições Debian que implementa tanto estratégias de recomendação por conteúdo quanto colaborativas \cite{araujo2011apprecommender}.
 Apesar do AppRecommender usar questões temporarais providas pelo pacote popularity-contest nas suas recomendações, tal atributo temporal só é explorado nas recomendações colaborativas, e não nas baseadas em conteúdo, fazendo com que o projeto passe no critério de seleção estabelecido.
 
 \begin{description}
@@ -141,13 +141,13 @@ onde são usados:
 \centering
 \resizebox{\textwidth}{!}{\begin{tabular}{|l|l|l|l|}
 \hline
-\rowcolor[HTML]{EFEFEF} 
+\rowcolor[HTML]{EFEFEF}
 {\textbf{Dados}} & {\textbf{Contexto}} & {\textbf{Coleta}} \\ \hline
 Lista de pacotes válidos &
 \parbox{10cm}{Esta lista irá ser usada na criação de uma índice de busca Xapian,
 que será usado para realizar a recomendação} &
 \parbox{10cm}{Pode-se usar os scripts get\_axipkgs.py obter todos os possíveis
-pacotes Debian,ou usar o srcipt get\_programs.sh, que irá selecionar 
+pacotes Debian,ou usar o srcipt get\_programs.sh, que irá selecionar
 só pacotes que contém a Debtag role:;program, indicando que o mesmo é um
 pacote executável.}\\ \hline
 Índice xapian de pacotes do usuário &
@@ -156,17 +156,17 @@ pacote executável.}\\ \hline
 \parbox{10cm}{Este Índice pode ser gerado via execução do script indexer\_axi.py
  passando os parâmetros certos}\\ \hline
 Debtags válidas&
-\parbox{10cm}{Usado para filtrar os pacote que serão usados na 
+\parbox{10cm}{Usado para filtrar os pacote que serão usados na
 recomendação}&
 \parbox{10cm}{Pode ser obtido pelo script get\_tags.py}\\ \hline
 Submissões do popularity contest&
-\parbox{10cm}{Usada para criar um índice Xapian de submissões do 
+\parbox{10cm}{Usada para criar um índice Xapian de submissões do
 popularity-contest}&
 \parbox{10cm}{O projeto não provê uma forma automatizada de coletar tais dados,
 devido ao fato do mantenedor do projeto não fornecer tais dados.}\\ \hline
 Indíce Xapian para submissões do popularity contest &
-\parbox{10cm}{Usado tanto para a realização de recomendações colaborativas e 
-híbridas, assim como para a execução dos experimentos usados 
+\parbox{10cm}{Usado tanto para a realização de recomendações colaborativas e
+híbridas, assim como para a execução dos experimentos usados
 para avaliar as soluções desenvolvidas.} &
 \parbox{10cm}{Pode ser obtido pela execução do script indexer\_popcon.py.
 Entretanto, vale ressaltar que esse script parte do princípio que já existem
@@ -186,6 +186,50 @@ que algumas questões de relacionada a privacidade dos usuários se tornou neces
 \cite{araujo2011apprecommender}. Dessa forma, foi necessário pensar em uma estratégia
 de coleta de dados, principalmente visando o funcionamento dos experimentos propostos
 para a avaliação dos algoritmos.
+
+
+\section{Descrição do projeto selecionado}
+
+Segundo Tassia Camoes, a criadora do projeto selecionado, o AppRecommender é uma
+proposta de um recomendador de aplicativos GNU/Linux \cite{araujo2011apprecommender}.
+Onde a principal característica do AppRecommender, como o próprio nome da aplicação
+indica, recomendar aplicações, onde “dada a lista de programas instalados em
+determinado sistema, o recomendador retorna uma lista de aplicativos sugeridos, que
+supostamente são aplicativos de potencial interesse para os usuários daquele sistema”
+\cite{araujo2011apprecommender}.
+
+O AppRecommender possui três categorias para estratégias de recomendação, onde cada
+estratégia é uma forma diferente de se obter uma lista de aplicativos sugeridos
+através de uma lista de pacotes instalados no sistema, essas categorias de estratégias
+são: Baseadas em conteúdo, colaborativas, e híbridas, segue a baixo as especificações
+de cada categoria de estratégia \cite{araujo2011apprecommender}.
+
+\begin{itemize}
+    \item \textit{\textbf{Baseadas em conteúdo:}} Esse tipo de categoria de estratégia
+visa montar um perfil de usuário através da lista dos pacotes instalados no sistema,
+onde esse perfil é uma lista composta por tags ou descrições de pacotes que são
+definidos pelo algoritmo da estratégia escolhida, através dessa lista a base de dados
+com todos os pacotes é consultada e o resultado da recomendação são os pacotes mais
+relevantes para o perfil criado \cite{araujo2011apprecommender}.
+    \item \textit{\textbf{Colaborativas:}} Nessa categoria de estratégia o conjunto
+do nome dos pacotes instalados é que formam o perfil do usuário, e o resultado da
+recomendação é um conjunto de pacotes formado pelos pacotes que usuários com perfil
+semelhante possuem e o usuário que está executando a recomendação não possui \cite{araujo2011apprecommender}.
+    \item \textit{\textbf{Híbridas:}} Como o próprio nome determina, essa categoria
+de estratégia utiliza as duas anteriores, onde há formas diferentes de combiná-las
+afim de se obter melhores resultados na recomendação.
+\end{itemize}
+
+O AppRecommender pode ser executado via terminal, através do script apprec.py, que a
+partir do diretório do AppRecommender, é encontrado no caminho “./src/bin”. Os
+argumentos utilizados na execução desse script determinam a categoria e a estratégia
+de recomendação a ser utilizada. Existe também uma interface web para o recomendador
+\cite{araujo2011apprecommender}.
+
+A licença do AppRecommender é “GNU GPL e disponível em repositório público” \cite{araujo2011apprecommender}.
+Foi utilizado boas práticas de programação, onde “o desenvolvimento obedeceu ao guia
+de estilo para código em python, fez uso de testes automatizados e padrões de
+projeto” \cite{araujo2011apprecommender}.
 
 
 \section{Aprendizado de máquina}
@@ -225,7 +269,7 @@ possui os seguintes valores:
 \centering
 \begin{tabular}{cc}
 \hline
-\rowcolor[HTML]{EFEFEF} 
+\rowcolor[HTML]{EFEFEF}
 {Escala} & {Valores} \\ \hline
 {Excelent(EX)}  & ClassificaçãoTempo >= 80                  \\ \hline
 {Great(G)}   & ClassificaçãoTempo >= 70                  \\ \hline
@@ -235,7 +279,7 @@ possui os seguintes valores:
 \end{tabular}
 \caption{Escala para classificação de um pacote baseado em seus atributos de tempo}
 \label{tab:cwe476-erros}
-\end{table}  
+\end{table}
 
 
 Com a escala e a coleta das informações de tempo coletadas para cada pacote,
@@ -250,7 +294,7 @@ recomendação são as debtags e as palavras que compõem sua descrição, escol
 vetor binário para cada um dos items. Sendo assim, os vetor de entrada será composto pela agregação de dois vetores
 binários.
 
-Para as debtags, o vetor binário irá ter o tamanho igual ao número de debtags definidas pelo Debian. Sendo assim, o 
+Para as debtags, o vetor binário irá ter o tamanho igual ao número de debtags definidas pelo Debian. Sendo assim, o
 vetor binário irá representar as debtags ordenadas em ordem alfabética. Dessa forma,
 o vetor binário de um dado pacote irá conter o valor "0" caso o mesmo não contenha uma debtag e "1" caso a mesma se encontre
 no pacote. Por exemplo, dado um conjunto de três debtags role:program, implemented-in:c e devel:editor, e um pacote com a debtag
@@ -265,7 +309,7 @@ termos dos pacotes do usuário e aplicar o filtro de termos comuns, a abordagem 
 similar ao vetor binário das debtags, onde os termos estarão representados em ordem alfabética e caso o pacote contenha tal termo em sua
 descrição, a posição do vetor associado ao termo será marcada como "1".
 
-Com a combinação desses valores, chega-se então a forma final da forma de entrada de um pacote para o uso de algoritmos de aprendizado 
+Com a combinação desses valores, chega-se então a forma final da forma de entrada de um pacote para o uso de algoritmos de aprendizado
 supervisionados. Observa-se também que para propósitos de  armazenamento, a classificação do pacote também é armazenada ao final da combinação
 dos vetores binários dos termos e debtags. A Figura X mostra a versão final da formatação de dados de um pacote:
 
@@ -286,72 +330,72 @@ identificação de \textit{overfitting} e \textit{underfitting}.
 
 Com o perfil de usuário criado e validado, toda vez que uma recomendação for gerada, os pacotes escolhidos serão filtrados pelo perfil criado,
 sendo que apenas os pacotes classificados com EX ou G qualificados para a recomendação ao usuário.
-        
+
 
 \subsection{Numeração de Páginas}
 
-A contagem sequencial para a numeração de páginas começa a partir da 
-primeira folha do trabalho que é a Folha de Rosto, contudo a numeração em 
-si só deve ser iniciada a partir da primeira folha dos elementos textuais. 
-Assim, as páginas dos elementos pré-textuais contam, mas não são numeradas 
-e os números de página aparecem a partir da primeira folha dos elementos 
-textuais que é a Introdução. 
+A contagem sequencial para a numeração de páginas começa a partir da
+primeira folha do trabalho que é a Folha de Rosto, contudo a numeração em
+si só deve ser iniciada a partir da primeira folha dos elementos textuais.
+Assim, as páginas dos elementos pré-textuais contam, mas não são numeradas
+e os números de página aparecem a partir da primeira folha dos elementos
+textuais que é a Introdução.
 
-Os números devem estar em algarismos arábicos (fonte Times ou Arial 10) no 
-canto superior direito da folha, a 02 cm da borda superior, sem traços, 
-pontos ou parênteses. 
+Os números devem estar em algarismos arábicos (fonte Times ou Arial 10) no
+canto superior direito da folha, a 02 cm da borda superior, sem traços,
+pontos ou parênteses.
 
-A paginação de Apêndices e Anexos deve ser contínua, dando seguimento ao 
+A paginação de Apêndices e Anexos deve ser contínua, dando seguimento ao
 texto principal.
 
 \subsection{Espaços e alinhamento}
 
-Para a monografia de TCC 01 e 02 o espaço entrelinhas do corpo do texto 
-deve ser de 1,5 cm, exceto RESUMO, CITAÇÔES de mais de três linhas, NOTAS 
-de rodapé, LEGENDAS e REFERÊNCIAS que devem possuir espaçamento simples. 
-Ainda, ao se iniciar a primeira linha de cada novo parágrafo se deve 
+Para a monografia de TCC 01 e 02 o espaço entrelinhas do corpo do texto
+deve ser de 1,5 cm, exceto RESUMO, CITAÇÔES de mais de três linhas, NOTAS
+de rodapé, LEGENDAS e REFERÊNCIAS que devem possuir espaçamento simples.
+Ainda, ao se iniciar a primeira linha de cada novo parágrafo se deve
 tabular a distância de 1,25 cm da margem esquerda.
 
-Quanto aos títulos das seções primárias da monografia, estes devem começar 
-na parte superior da folha e separados do texto que o sucede, por um espaço 
-de 1,5 cm entrelinhas, assim como os títulos das seções secundárias, 
-terciárias. 
+Quanto aos títulos das seções primárias da monografia, estes devem começar
+na parte superior da folha e separados do texto que o sucede, por um espaço
+de 1,5 cm entrelinhas, assim como os títulos das seções secundárias,
+terciárias.
 
-A formatação de alinhamento deve ser justificado, de modo que o texto fique 
-alinhado uniformemente ao longo das margens esquerda e direita, exceto para 
-CITAÇÕES de mais de três linhas que devem ser alinhadas a 04 cm da margem 
-esquerda e REFERÊNCIAS que são alinhadas somente à margem esquerda do texto 
+A formatação de alinhamento deve ser justificado, de modo que o texto fique
+alinhado uniformemente ao longo das margens esquerda e direita, exceto para
+CITAÇÕES de mais de três linhas que devem ser alinhadas a 04 cm da margem
+esquerda e REFERÊNCIAS que são alinhadas somente à margem esquerda do texto
 diferenciando cada referência.
 
 \subsection{Quebra de Capítulos e Aproveitamento de Páginas}
 
-Cada seção ou capítulo deverá começar numa nova pagina (recomenda-se que 
-para texto muito longos o autor divida seu documento em mais de um arquivo 
-eletrônico). 
+Cada seção ou capítulo deverá começar numa nova pagina (recomenda-se que
+para texto muito longos o autor divida seu documento em mais de um arquivo
+eletrônico).
 
-Caso a última pagina de um capitulo tenha apenas um número reduzido de 
-linhas (digamos 2 ou 3), verificar a possibilidade de modificar o texto 
-(sem prejuízo do conteúdo e obedecendo as normas aqui colocadas) para 
+Caso a última pagina de um capitulo tenha apenas um número reduzido de
+linhas (digamos 2 ou 3), verificar a possibilidade de modificar o texto
+(sem prejuízo do conteúdo e obedecendo as normas aqui colocadas) para
 evitar a ocorrência de uma página pouco aproveitada.
 
-Ainda com respeito ao preenchimento das páginas, este deve ser otimizado, 
-evitando-se espaços vazios desnecessários. 
+Ainda com respeito ao preenchimento das páginas, este deve ser otimizado,
+evitando-se espaços vazios desnecessários.
 
-Caso as dimensões de uma figura ou tabela impeçam que a mesma seja 
-posicionada ao final de uma página, o deslocamento para a página seguinte 
-não deve acarretar um vazio na pagina anterior. Para evitar tal ocorrência, 
-deve-se re-posicionar os blocos de texto para o preenchimento de vazios. 
+Caso as dimensões de uma figura ou tabela impeçam que a mesma seja
+posicionada ao final de uma página, o deslocamento para a página seguinte
+não deve acarretar um vazio na pagina anterior. Para evitar tal ocorrência,
+deve-se re-posicionar os blocos de texto para o preenchimento de vazios.
 
-Tabelas e figuras devem, sempre que possível, utilizar o espaço disponível 
-da página evitando-se a \lq\lq quebra\rq\rq\ da figura ou tabela. 
+Tabelas e figuras devem, sempre que possível, utilizar o espaço disponível
+da página evitando-se a \lq\lq quebra\rq\rq\ da figura ou tabela.
 
 \section{Cópias}
 
-Nas versões do relatório para revisão da Banca Examinadora em TCC1 e TCC2, 
-o aluno deve apresentar na Secretaria da FGA, uma cópia para cada membro da 
+Nas versões do relatório para revisão da Banca Examinadora em TCC1 e TCC2,
+o aluno deve apresentar na Secretaria da FGA, uma cópia para cada membro da
 Banca Examinadora.
 
-Após a aprovação em TCC2, o aluno deverá obrigatoriamente apresentar a 
+Após a aprovação em TCC2, o aluno deverá obrigatoriamente apresentar a
 versão final de seu trabalho à Secretaria da FGA na seguinte forma:
 
 \begin{description}
@@ -360,12 +404,12 @@ versão final de seu trabalho à Secretaria da FGA na seguinte forma:
 	\item 01 cópia em CD de todos os arquivos empregados no trabalho;
 \end{description}
 
-A cópia em CD deve conter, além do texto, todos os arquivos dos quais se 
-originaram os gráficos (excel, etc.) e figuras (jpg, bmp, gif, etc.) 
-contidos no trabalho. Caso o trabalho tenha gerado códigos fontes e 
-arquivos para aplicações especificas (programas em Fortran, C, Matlab, 
-etc.) estes deverão também ser gravados em CD. 
+A cópia em CD deve conter, além do texto, todos os arquivos dos quais se
+originaram os gráficos (excel, etc.) e figuras (jpg, bmp, gif, etc.)
+contidos no trabalho. Caso o trabalho tenha gerado códigos fontes e
+arquivos para aplicações especificas (programas em Fortran, C, Matlab,
+etc.) estes deverão também ser gravados em CD.
 
-O autor deverá certificar a não ocorrência de “vírus” no CD entregue a 
-secretaria. 
+O autor deverá certificar a não ocorrência de “vírus” no CD entregue a
+secretaria.
 

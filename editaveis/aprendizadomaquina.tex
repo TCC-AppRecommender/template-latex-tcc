@@ -1,0 +1,583 @@
+\section{Aprendizado de máquina}
+
+Aprendizado pode ser definido como qualquer mudança em um sistema que
+otimize o seu desempenho na segunda vez que ele repetir a mesma tarefa,
+ou outra tarefa da mesma população~\cite{custodio2010aprendizadomaquina}.
+
+O aprendizado de máquina utiliza um princípio de inferência denominado
+indução, onde através de um conjunto particular de exemplos é possível
+obter conclusões genéricas~\cite{bruno2010aprendizadomaquina}. De um modo
+abstrato o aprendizado de máquina funciona como uma caixa preta, onde
+independente de como é implementado, o algoritmo deve ser capaz de receber
+várias entradas com suas respectivas saídas, como informações de treinamento,
+essa é a parte aonde ocorre o aprendizado, após isso o algoritmo deve
+ser capaz de apresentar um resultado para cada novo dado de entrada no
+algoritmo, onde quanto melhor for o treinamento, melhor os resultados
+dos novos dados de entrada.
+
+Como exemplo, o aprendizado de máquina pode ser usado para identificar
+a classificação de um conjunto de atributos. Supondo que um conjunto
+possua cinco atributos binários, ou seja, os atributos apenas possuí os
+valores 0 e 1, o algoritmo deve ser treinado usando como entrada vários
+atributos com sua respectiva classificação, essa classificação
+varia entre 0, 1 e 2, onde os significado desses valores são: 0 é ruim,
+1 é mediano e 2 é bom. Após o algoritmo ser treinado ele está pronto
+para receber um conjunto de atributos e então retornar a classificação
+desses atributos, baseando-se no treinamento recebido, logo a qualidade
+da resposta do algoritmo está diretamente relacionado a qualidade do
+treinamento.
+
+\subsection{Aprendizado supervisionado}
+
+Uma das principais técnicas de aprendizado de máquina é o aprendizado
+supervisionado, onde é fornecido um treinamento com o conhecimento do
+ambiente, o treinamento é composto por um conjunto de exemplos com entradas
+e uma saída esperada~\cite{bruno2010aprendizadomaquina}.
+
+O objetivo do aprendizado supervisionado é induzir conceitos a partir de
+exemplos que estão pré-classificados, em outras palavras, exemplos que
+possuem um rótulo associado a uma classe conhecida~\cite{bruno2010aprendizadomaquina}.
+Utilizado quando se tem tanto as perguntas quanto as respostas, o aprendizado
+supervisionado é utilizado para se obter uma classificação e funções de aproximação.
+
+Utilizando do exemplo do algoritmo que classifica um conjunto de atributos,
+na utilização do aprendizado supervisionado, para cada entrada do treinamento
+existe um rótulo, que se trata da classificação do conjunto de atributos, ou
+seja, apenas possui os valores 0, 1 e 2, entrada também possui os valores dos
+atributos associados ao rótulo. A tabela~\ref{tab:entradas_de_treinamento}
+mostra um exemplo das entradas de treinamento.
+
+\begin{table}[h]
+\centering
+\resizebox{\textwidth}{!}{\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+\rowcolor[HTML]{EFEFEF}
+{\textbf{Rótulo}} & {\textbf{Atributo 1}} & {\textbf{Atributo 2}} & {\textbf{Atributo 3}} & {\textbf{Atributo 4}} & {\textbf{Atributo 5}} \\ \hline
+1 & 1 & 0 & 1 & 0 & 1 \\
+\hline
+2 & 0 & 1 & 1 & 0 & 1 \\
+\hline
+0 & 1 & 0 & 0 & 1 & 1 \\
+\hline
+1 & 1 & 0 & 1 & 1 & 0 \\
+\hline
+2 & 0 & 1 & 1 & 1 & 0 \\
+\hline
+\end{tabular}}
+\caption{Entradas de treinamento para o aprendizado de máquina}
+\label{tab:entradas_de_treinamento}
+\end{table}
+
+Após ser realizada a etapa de treinamento, ao receber uma sequencia de cinco
+atributos, o algoritmo deve retornar qual o rótulo, ou seja, a classificação,
+correspondente a esses atributos. A tabela~\ref{tab:entrada_para_classificar}
+mostra um exemplo de entrada para o algoritmo, a diferença dessa entrada para
+a de treinamento é que essa não possui o rótulo, pois o rótulo será o resultado
+da execução do algoritmo.
+
+\begin{table}[h]
+\centering
+\resizebox{\textwidth}{!}{\begin{tabular}{|l|l|l|l|l|}
+\hline
+\rowcolor[HTML]{EFEFEF}
+{\textbf{Atributo 1}} & {\textbf{Atributo 2}} & {\textbf{Atributo 3}} & {\textbf{Atributo 4}} & {\textbf{Atributo 5}} \\ \hline
+1 & 0 & 1 & 1 & 0 \\
+\hline
+\end{tabular}}
+\caption{Entrada de dados para o algoritmo determinar o rótulo}
+\label{tab:entrada_para_classificar}
+\end{table}
+
+\subsection{Bayes Ingênuo}
+
+Um algoritmo supervisionado, e bastante utilizado no aprendizado de máquina,
+o bayes ingênuo, também conhecido como naive bayes, é denominado ingênuo devido
+ao fato de que o algoritmo assume que os atributos são condicionalmente
+independentes, ou seja, considera-se que as entradas são independentes entre
+si, porém, mesmo partindo dessa ingenuidade os resultados não comprometem a
+qualidade~\cite{bruno2010aprendizadomaquina}. Mesmo com essa independencia dos
+atributos, o bayes ingênuo é um método bastante efetivo e frequentemente oferece
+uma precisão comparável aos outros métodos (comparável à métodos pertencentes ao
+estado da arte), e estudos também mostram que o bayes ingênuo pode aprender a
+função de classificação ótima~\cite{santos2010naivebayes}.
+
+No caso da classificação dos atributos, onde para cada entrada há o rótulo, ou
+seja, a classificação, seguido dos cinco atributos que possuem essa classificação,
+como mostra a tabela~\ref{tab:entradas_de_treinamento}. Na utilização do Bayes
+Ingênuo a tabela~\ref{tab:entradas_de_treinamento} será dividida em uma matriz D
+com os dados dos atributos, as dimensões dessa matriz são ``${e \times a}$'', onde
+``e'' é o número de entradas e ``a'' é o número de atributos, e a outra parte da
+divisão da tabela~\ref{tab:entradas_de_treinamento} é um vetor coluna L com os
+dados dos rótulos, onde suas dimensões são ``${e \times 1}$''.
+
+$$D=\left[
+\begin{array}{ccccc}
+1 & 0 & 1 & 0 & 1 \\
+0 & 1 & 1 & 0 & 1 \\
+1 & 0 & 0 & 1 & 1 \\
+1 & 0 & 1 & 1 & 0 \\
+0 & 1 & 1 & 1 & 0 \\
+\end{array}
+\right]_{e \times a}$$
+
+$$L=\left[
+\begin{array}{c}
+1 \\
+2 \\
+0 \\
+1 \\
+2 \\
+\end{array}
+\right]_{e \times 1}$$
+
+Para o algoritmo funcionar também é necessário ter conhecimento de quais são as
+classificações que os atributos podem receber, essas classificações são informadas
+através do vetor coluna B, com dimensões ``${l \times 1}$'', onde ``l'' é o número
+de rótulos, ou classificações possíveis.
+
+$$B=\left[
+\begin{array}{c}
+0 \\
+1 \\
+2 \\
+\end{array}
+\right]_{l \times 1}$$
+
+Utilizando a matriz D e os vetores L e B, monta-se a matriz de adjacência A, onde
+cada linha dessa matriz representa respectivamente uma linha do vetor B, e cada
+coluna da matriz representa uma entrada. A matriz de adjacência A também é uma
+matriz com valores binários, onde um indica a presença do atributo na classificação,
+e zero indica a ausência do atributo na classificação. Logo a matriz A possui
+dimensões ``${l \times e}$''.
+
+$$A=\left[
+\begin{array}{ccccc}
+0 & 0 & 1 & 0 & 0 \\
+1 & 0 & 0 & 1 & 0 \\
+0 & 1 & 0 & 0 & 1 \\
+\end{array}
+\right]_{l \times e}$$
+
+Utilizando a matriz A pode-se calcular o vetor com o histograma do vetor L, onde
+cada linha do vetor histograma H representa respectivamente um possível rótulo da
+matriz B, e o valor de cada linha representa o número de pacotes no qual o rótulo
+está associado. O vetor coluna H é calculado pela multiplicação da matriz A pelo
+vetor coluna com todos os valores sendo 1, onde esse vetor coluna possui ``e''
+linhas, logo as dimensões do vetor coluna H são ``${l \times 1}$''
+
+$$H=A_{l \times e} * \left[
+\begin{array}{c}
+1 \\
+1 \\
+1 \\
+1 \\
+1 \\
+\end{array}
+\right]_{e \times 1}$$
+
+$$H=\left[
+\begin{array}{c}
+1 \\
+2 \\
+2 \\
+\end{array}
+\right]_{l \times 1}$$
+
+Utilizando o vetor H é calculado a probabilidade de cada rótulo, que é representada
+pelo vetor PH, resultante da divisão do vetor H por ``e''.
+
+\begin{center}
+$PH= \frac{1}{e} * H_{l \times 1}$
+\end{center}
+
+$$PH=\left[
+\begin{array}{c}
+\frac{1}{5} \\
+\frac{2}{5} \\
+\frac{2}{5} \\
+\end{array}
+\right]_{l \times 1}$$
+
+O próximo passo é calcular a matriz PR1, que se trata da probabilidade de um
+atributo ser igual a um, na relação entre os rótulos possíveis, o vetor B, e os
+atributos da matriz D. Para isso é necessário identificar quantos atributos cada
+rótulo possui, obtido pela multiplicação da matriz de adjacência A com a matriz
+de dos atribudos D, resultando na matriz R contendo para cada possível rótulo
+quantos atributos este possui. A matriz PR1 é resultado da multiplicação entre a
+matriz inversa da diagonal feita pelo vetor H com a matriz R.
+
+\begin{center}
+$R = A_{l \times e} * D_{e \times a}$
+\end{center}
+
+$$R=\left[
+\begin{array}{ccccc}
+1 & 0 & 0 & 1 & 1 \\
+2 & 0 & 2 & 1 & 1 \\
+0 & 2 & 2 & 1 & 1 \\
+\end{array}
+\right]_{l \times a}$$
+
+$$diag(H)=\left[
+\begin{array}{ccc}
+1 & 0 & 0 \\
+0 & 2 & 0 \\
+0 & 0 & 2 \\
+\end{array}
+\right]_{l \times l}$$
+
+$$diag(H)^{-1}=\left[
+\begin{array}{ccc}
+1 & 0 & 0 \\
+0 & \frac{1}{2} & 0 \\
+0 & 0 & \frac{1}{2} \\
+\end{array}
+\right]_{l \times l}$$
+
+\begin{center}
+$PR1 = diag(H)^{-1}_{l \times l} * R_{l \times a}$
+\end{center}
+
+$$PR1=\left[
+\begin{array}{ccccc}
+1 & 0 & 0 & 1 & 1 \\
+1 & 0 & 1 & \frac{1}{2} & \frac{1}{2} \\
+0 & 1 & 1 & \frac{1}{2} & \frac{1}{2} \\
+\end{array}
+\right]_{l \times a}$$
+
+Também é necessário identificar a matriz PR0, que indica a probabilidade dos
+atributos possuirem o valor zero, essa matriz pode ser obtida através da
+expressão ``$1 - PR1$''.
+
+\begin{center}
+$PR0 \ = \ 1 \ - \ PR1_{l \times a}$
+\end{center}
+
+$$PR0=\left[
+\begin{array}{ccccc}
+0 & 1 & 1 & 0 & 0 \\
+0 & 1 & 0 & \frac{1}{2} & \frac{1}{2} \\
+1 & 0 & 0 & \frac{1}{2} & \frac{1}{2} \\
+\end{array}
+\right]_{l \times a}$$
+
+É necessário transformar as matrizes PR1 e PR0 em matrizes quadradas,
+sendo suas dimensoes ``${l \times a}$'', a matriz quadrada deve possuir
+a maior dentre as duas dimensões, neste caso as matrizes devem possuir
+as dimensões ``${a \times a}$'', para que isso aconteça as matrizes são
+multiplicadas pela matriz identidade de dimensões ``${a \times l}$''.
+
+$$PR1=\left[
+\begin{array}{ccc}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+0 & 0 & 0 \\
+0 & 0 & 0 \\
+\end{array}
+\right]_{a \times l}
+\left[
+\begin{array}{ccccc}
+1 & 0 & 0 & 1 & 1 \\
+1 & 0 & 1 & \frac{1}{2} & \frac{1}{2} \\
+0 & 1 & 1 & \frac{1}{2} & \frac{1}{2} \\
+\end{array}
+\right]_{l \times a}
+= \left[
+\begin{array}{ccccc}
+1 & 0 & 0 & 1 & 1 \\
+1 & 0 & 1 & \frac{1}{2} & \frac{1}{2} \\
+0 & 1 & 1 & \frac{1}{2} & \frac{1}{2} \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+\end{array}
+\right]_{a \times a}$$
+
+$$PR0=\left[
+\begin{array}{ccc}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+0 & 0 & 0 \\
+0 & 0 & 0 \\
+\end{array}
+\right]_{a \times l}
+\left[
+\begin{array}{ccccc}
+0 & 1 & 1 & 0 & 0 \\
+0 & 1 & 0 & \frac{1}{2} & \frac{1}{2} \\
+1 & 0 & 0 & \frac{1}{2} & \frac{1}{2} \\
+\end{array}
+\right]_{l \times a}
+= \left[
+\begin{array}{ccccc}
+0 & 1 & 1 & 0 & 0 \\
+0 & 1 & 0 & \frac{1}{2} & \frac{1}{2} \\
+1 & 0 & 0 & \frac{1}{2} & \frac{1}{2} \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+\end{array}
+\right]_{a \times a}$$
+
+Obtendo o vetor PH, que é a probabilidade individual de cada rótulo, e a
+matrizes PR1 e PR0, que são a probabilidade da relação entre os rótulos
+possíveis e os atributos da matriz D, o treinamento do algoritmo está
+finalizado.
+
+Com o algoritmo treinado, ele está pronto para receber um vetor com
+os atributos, como mostra a tabela~\ref{tab:entrada_para_classificar},
+é usado como exemplo o vetor v, que possui dimensões ``${1 \times a}$''.
+
+$$v=\left[
+\begin{array}{ccccc}
+1 & 0 & 1 & 1 & 0 \\
+\end{array}
+\right]_{1 \times a}$$
+
+O próximo passo é montar a matriz PV, que se trata da matriz de
+probabilidade para o vetor, onde se trata da junção das matrizes
+PR1 e PR0, onde para cada coluna do vetor v, se o valor for um
+utiliza a coluna da matriz PR1, se o valor for zero, utiliza a
+coluna da matriz PR0. Em outras palavras, a matriz PV é resultante
+da soma dos produtos entre PR1 e a matriz diagonal de v, com PR0
+e a matriz diagonal de v', onde o vetor v' se trata do vetor v
+porém os valores de 1 e 0 são alternados.
+
+$$v'=1-\left[
+\begin{array}{ccccc}
+1 & 0 & 1 & 1 & 0 \\
+\end{array}
+\right]_{1 \times a}
+=
+\left[
+\begin{array}{ccccc}
+0 & 1 & 0 & 0 & 1 \\
+\end{array}
+\right]_{1 \times a}
+$$
+\\
+
+\begin{center}
+$PV = PR1_{a \times a} * diagonal(v)_{a \times a} \ + \ PR0_{a \times a} * diagonal(v')_{a \times a}$
+\end{center}
+
+$$PV=
+\left[
+\begin{array}{ccccc}
+1 & 0 & 0 & 1 & 1 \\
+1 & 0 & 1 & \frac{1}{2} & \frac{1}{2} \\
+0 & 1 & 1 & \frac{1}{2} & \frac{1}{2} \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+\end{array}
+\right]_{a \times a}
+\left[
+\begin{array}{ccccc}
+1 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+\end{array}
+\right]_{a \times a}
++
+\left[
+\begin{array}{ccccc}
+0 & 1 & 1 & 0 & 0 \\
+0 & 1 & 0 & \frac{1}{2} & \frac{1}{2} \\
+1 & 0 & 0 & \frac{1}{2} & \frac{1}{2} \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+\end{array}
+\right]_{a \times a}
+\left[
+\begin{array}{ccccc}
+0 & 0 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 1 \\
+\end{array}
+\right]_{a \times a}
+$$
+
+$$PV=\left[
+\begin{array}{ccccc}
+1 & 1 & 0 & 1 & 0 \\
+1 & 1 & 1 & \frac{1}{2} & \frac{1}{2} \\
+0 & 0 & 1 & \frac{1}{2} & \frac{1}{2} \\
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 0 \\
+\end{array}
+\right]_{a \times a}$$
+
+Através da matriz PV é obtido o vetor coluna ``u'', onde o cada linha
+do vetor u corresponde a multiplicação dos elementos da linha da matriz
+PV, porém devido ao fato de uma probabilidade zero em uma linha da matriz
+PV irá fazer com que a multiplicação da linha seja igual a zero, para
+impedir esse problema é somado 1 a matriz PV. Como a matriz pode ter
+centenas de atributos ``a'' existe o problema de que a multiplicação
+desses elementos tornem a multiplicação das linhas da matriz um número
+muito grande, ou um número muito pequeno, afim de impedir que ocorra
+problemas computacionais com o tamanho dos números, ao invés de multiplicar
+as linhas da matriz, é somado o log de cada elemento da matriz PV resultando
+no vetor ``u''.
+
+\begin{center}
+$PV = PV_{a \times a} + 1$
+$$PV=\left[
+\begin{array}{ccccc}
+2 & 2 & 1 & 2 & 1 \\
+2 & 2 & 2 & \frac{3}{2} & \frac{3}{2} \\
+1 & 1 & 2 & \frac{3}{2} & \frac{3}{2} \\
+1 & 1 & 1 & 1 & 1 \\
+1 & 1 & 1 & 1 & 1 \\
+\end{array}
+\right]_{a \times a}$$
+\end{center}
+
+\begin{center}
+$PV = log(PV_{a \times a})$
+$$PV=\left[
+\begin{array}{ccccc}
+0.69315 & 0.69315 & 0.00000 & 0.69315 & 0.00000 \\
+0.69315 & 0.69315 & 0.69315 & 0.40547 & 0.40547 \\
+0.00000 & 0.00000 & 0.69315 & 0.40547 & 0.40547 \\
+0.00000 & 0.00000 & 0.00000 & 0.00000 & 0.00000 \\
+0.00000 & 0.00000 & 0.00000 & 0.00000 & 0.00000 \\
+\end{array}
+\right]_{a \times a}$$
+\end{center}
+
+\begin{center}
+$u \ = \ soma Das Linhas de PV$
+$$u=\left[
+\begin{array}{c}
+2.07944 \\
+2.89037 \\
+1.50408 \\
+0.00000 \\
+0.00000 \\
+\end{array}
+\right]_{a \times 1}$$
+\end{center}
+
+Assim como foi feita uma operação nas matrizes PR1 e PR0 para que as
+matrizes fiquem quadradas, é necessário que o vetor u tenha a mesma
+dimensão do vetor B, que é o vetor com os os possíveis labels, para
+isso multiplica-se o vetor u pela diagonal unitária com dimensão
+quantidade de labels ``l'' pela quantidade de atributos ``a''.
+
+$$u=\left[
+\begin{array}{ccccc}
+1 & 0 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 & 0 \\
+\end{array}
+\right]_{l \times a}
+\left[
+\begin{array}{c}
+2.07944 \\
+2.89037 \\
+1.50408 \\
+0.00000 \\
+0.00000 \\
+\end{array}
+\right]_{a \times 1}
+$$
+
+$$u=\left[
+\begin{array}{c}
+2.07944 \\
+2.89037 \\
+1.50408 \\
+\end{array}
+\right]_{l \times 1}
+$$
+
+O vetor PF contendo a probabilidade de cada rótulo para o vetor de
+entrada v, é obtido pela relação entre a probabilidade de cada rótulo,
+o vetor PH, com o vetor u, onde PF é o resultado da multiplicação da
+diagonal do vetor PH com o vetor u, onde o vetor PH deve passar pelo
+mesmo processo do vetor PV, ou seja, somar 1 ao vetor e depois fazer
+o log.
+
+\begin{center}
+$PH = 1 + PH_{l \times 1}$
+$$PH=1 + \left[
+\begin{array}{c}
+\frac{1}{5} \\
+\frac{2}{5} \\
+\frac{2}{5} \\
+\end{array}
+\right]_{l \times 1}$$
+$$PH=\left[
+\begin{array}{c}
+\frac{6}{5} \\
+\frac{7}{5} \\
+\frac{7}{5} \\
+\end{array}
+\right]_{l \times 1}$$
+\end{center}
+
+\begin{center}
+$PH = log(PH)$
+$$PH=\left[
+\begin{array}{c}
+0.18232 \\
+0.33647 \\
+0.33647 \\
+\end{array}
+\right]_{l \times 1}$$
+\end{center}
+
+$$PF=\left[
+\begin{array}{ccccc}
+0.18232 & 0 & 0 \\
+0 & 0.33647 & 0 \\
+0 & 0 & 0.33647 \\
+\end{array}
+\right]_{l \times l}
+\left[
+\begin{array}{c}
+2.07944 \\
+2.89037 \\
+1.50408 \\
+\end{array}
+\right]_{l \times 1}
+$$
+
+$$PF=\left[
+\begin{array}{c}
+0.37913 \\
+0.97253 \\
+0.50608 \\
+\end{array}
+\right]_{l \times 1}
+$$
+
+O rótulo que possui maior probabilidade para o vetor de entrada v, é o
+rótulo 1, ou a classificação 1 para o exemplo, pois o rótulo 1 no vetor
+B está na mesma linha que a maior probabilidade no vetor PF. Logo a resposta
+do algoritmo para a entrada do vetor v é o rótulo 1, essa é a aplicação
+do algoritmo naive bayes para o exemplo da classificação do conjunto de
+atributos.
+
+O classificador bayesiano pode ser calculado através do modelo de probabilidade
+máxima posterior, ``dado que C é o conjunto de classes e x o objeto a ser
+classificado, a classe atribuída será a que apresentar maior probabilidade
+condicionada a x. {\^P} é utilizado em vez de P porque geralmente não se sabe
+o valor exato das probabilidades, que são estimadas a partir dos dados de
+treinamento''\citeonline{araujo2011apprecommender}.
+
+\begin{center}
+$ c_{map} \ = \ {arg max}_{c \in C} \ \hat{P}(c) \ \prod\limits_{1 \leq i \leq n} \hat{P}(x_i | c)  $
+\\
+\end{center}
+
+Onde {\^P}(c) se trata dos valores do vetor PH, o produtório $\hat{P}(x_i | c)$
+é representado pelo vetor u, e a seleção do maior arguemento de ${c \in C}$
+acontece na seleção do elemento do vetor B, que representa os rótulos que os
+atributos podem receber, relacionado a mesma linha do maior elemento no vetor PF,
+que representa a probabilidade associada a cada rótulo.

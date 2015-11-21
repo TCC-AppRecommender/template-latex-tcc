@@ -145,7 +145,7 @@ $$B=\left[
 
 Utilizando a matriz D e os vetores L e B, monta-se a matriz de adjacência A, onde
 cada linha dessa matriz representa respectivamente uma linha do vetor B, e cada
-coluna da matriz representa um atributo. A matriz de adjacência A também é uma
+coluna da matriz representa uma entrada. A matriz de adjacência A também é uma
 matriz com valores binários, onde um indica a presença do atributo na classificação,
 e zero indica a ausência do atributo na classificação. Logo a matriz A possui
 dimensões ``${l \times e}$''.
@@ -156,7 +156,7 @@ $$A=\left[
 1 & 0 & 0 & 1 & 0 \\
 0 & 1 & 0 & 0 & 1 \\
 \end{array}
-\right]_{e \times a}$$
+\right]_{l \times e}$$
 
 Utilizando a matriz A pode-se calcular o vetor com o histograma do vetor L, onde
 cada linha do vetor histograma H representa respectivamente um possível rótulo da
@@ -165,7 +165,7 @@ está associado. O vetor coluna H é calculado pela multiplicação da matriz A 
 vetor coluna com todos os valores sendo 1, onde esse vetor coluna possui ``e''
 linhas, logo as dimensões do vetor coluna H são ``${l \times 1}$''
 
-$$H=A * \left[
+$$H=A_{l \times e} * \left[
 \begin{array}{c}
 1 \\
 1 \\
@@ -187,14 +187,14 @@ Utilizando o vetor H é calculado a probabilidade de cada rótulo, que é repres
 pelo vetor PH, resultante da divisão do vetor H por ``e''.
 
 \begin{center}
-$PH= \frac{1}{e} * H$
+$PH= \frac{1}{e} * H_{l \times 1}$
 \end{center}
 
 $$PH=\left[
 \begin{array}{c}
-\frac{1}{3} \\
-\frac{2}{3} \\
-\frac{2}{3} \\
+\frac{1}{5} \\
+\frac{2}{5} \\
+\frac{2}{5} \\
 \end{array}
 \right]_{l \times 1}$$
 
@@ -203,11 +203,11 @@ atributo ser igual a um, na relação entre os rótulos possíveis, o vetor B, e
 atributos da matriz D. Para isso é necessário identificar quantos atributos cada
 rótulo possui, obtido pela multiplicação da matriz de adjacência A com a matriz
 de dos atribudos D, resultando na matriz R contendo para cada possível rótulo
-quantos atributos este possui. A matrix PR1 é resultado da multiplicação entre a
+quantos atributos este possui. A matriz PR1 é resultado da multiplicação entre a
 matriz inversa da diagonal feita pelo vetor H com a matriz R.
 
 \begin{center}
-$R = A * D$
+$R = A_{l \times e} * D_{e \times a}$
 \end{center}
 
 $$R=\left[
@@ -220,9 +220,9 @@ $$R=\left[
 
 $$diag(H)=\left[
 \begin{array}{ccc}
-\frac{1}{3} & 0 & 0 \\
-0 & \frac{2}{3} & 0 \\
-0 & 0 & \frac{2}{3} \\
+1 & 0 & 0 \\
+0 & 2 & 0 \\
+0 & 0 & 2 \\
 \end{array}
 \right]_{l \times l}$$
 
@@ -235,7 +235,7 @@ $$diag(H)^{-1}=\left[
 \right]_{l \times l}$$
 
 \begin{center}
-$PR1 = diag(H)^{-1} * R$
+$PR1 = diag(H)^{-1}_{l \times l} * R_{l \times a}$
 \end{center}
 
 $$PR1=\left[
@@ -251,7 +251,7 @@ atributos possuirem o valor zero, essa matriz pode ser obtida através da
 expressão ``$1 - PR1$''.
 
 \begin{center}
-$PR0 \ = \ 1 \ - \ PR1$
+$PR0 \ = \ 1 \ - \ PR1_{l \times a}$
 \end{center}
 
 $$PR0=\left[
@@ -359,7 +359,7 @@ $$
 \\
 
 \begin{center}
-$PV = PR1 * diagonal(v) \ + \ PR0 * diagonal(v')$
+$PV = PR1_{a \times a} * diagonal(v)_{a \times a} \ + \ PR0_{a \times a} * diagonal(v')_{a \times a}$
 \end{center}
 
 $$PV=
@@ -425,7 +425,7 @@ as linhas da matriz, é somado o log de cada elemento da matriz PV resultando
 no vetor ``u''.
 
 \begin{center}
-$PV = PV + 1$
+$PV = PV_{a \times a} + 1$
 $$PV=\left[
 \begin{array}{ccccc}
 2 & 2 & 1 & 2 & 1 \\
@@ -438,7 +438,7 @@ $$PV=\left[
 \end{center}
 
 \begin{center}
-$PV = log(PV)$
+$PV = log(PV_{a \times a})$
 $$PV=\left[
 \begin{array}{ccccc}
 0.69315 & 0.69315 & 0.00000 & 0.69315 & 0.00000 \\
@@ -504,12 +504,19 @@ mesmo processo do vetor PV, ou seja, somar 1 ao vetor e depois fazer
 o log.
 
 \begin{center}
-$PH = 1 + PH$
+$PH = 1 + PH_{l \times 1}$
+$$PH=1 + \left[
+\begin{array}{c}
+\frac{1}{5} \\
+\frac{2}{5} \\
+\frac{2}{5} \\
+\end{array}
+\right]_{l \times 1}$$
 $$PH=\left[
 \begin{array}{c}
-\frac{4}{3} \\
-\frac{5}{3} \\
-\frac{5}{3} \\
+\frac{6}{5} \\
+\frac{7}{5} \\
+\frac{7}{5} \\
 \end{array}
 \right]_{l \times 1}$$
 \end{center}
@@ -518,18 +525,18 @@ $$PH=\left[
 $PH = log(PH)$
 $$PH=\left[
 \begin{array}{c}
-0.28768 \\
-0.51083 \\
-0.51083 \\
+0.18232 \\
+0.33647 \\
+0.33647 \\
 \end{array}
 \right]_{l \times 1}$$
 \end{center}
 
 $$PF=\left[
 \begin{array}{ccccc}
-0.28768 & 0 & 0 \\
-0 & 0.51083 & 0 \\
-0 & 0 & 0.51083 \\
+0.18232 & 0 & 0 \\
+0 & 0.33647 & 0 \\
+0 & 0 & 0.33647 \\
 \end{array}
 \right]_{l \times l}
 \left[
@@ -543,9 +550,9 @@ $$
 
 $$PF=\left[
 \begin{array}{c}
-0.59822 \\
-1.47648 \\
-0.76832 \\
+0.37913 \\
+0.97253 \\
+0.50608 \\
 \end{array}
 \right]_{l \times 1}
 $$

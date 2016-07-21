@@ -462,8 +462,10 @@ refletem perfeitamente o contexto de uso dos pacotes.
 Com isso dito, a informação temporal de cada pacote será obtida pela seguinte
 fórmula:
 
-PesoTemporalDoPacote = $\frac{TempoAcesso - TempoModificação}{TempoAtual -
-TempoModificação}$
+\begin{equation} \label{eq:peso_temporal_do_pacote}
+PesoTemporalDoPacote = \frac{TempoAcesso - TempoModificação}{TempoAtual -
+TempoModificação}
+\end{equation}
 
 
 Onde:
@@ -543,55 +545,50 @@ no momento que o TFIDF for calculado, o peso temporal do termo também é
 calculado e seus valores são enfim multiplicados.
 
 Para calcular o peso temporal de um dado termo, calcula-se primeiro o valor da
-classificação no tempo para cada pacote através da fórmula definida na Seção
-Contexto Temporal \ref{sec:contexto_temporal} para atribuir o valor
-a cada um dos pacotes.
+classificação no tempo para cada pacote através da fórmula definida na Equação
+\ref{eq:peso_temporal_do_pacote} atribuindo o resultado da equação a cada um
+dos pacotes.
 
 Com esse valor calculado, é necessário atribuir mais peso para pacotes que
 foram recentemente usados, sendo assim é usado uma função de decaimento
 exponencial para obter controle quanto à suavidade da curva que relaciona
 a classificação no tempo com o peso do pacote, utilizando a seguinte função:
 
-\textbf{PesoPacote} = C / $\exp\left(-({1 - PesoTemporalDoPacote}) * {\lambda}\right)$
+\begin{equation} \label{eq:peso_pacote}
+\textbf{PesoPacote} = C \times \exp\left(({1 - PesoTemporalDoPacote}) \times {\lambda}\right)
+\end{equation}
 
 Onde C e alfa são constantes usadas para alterar a velocidade do decaimento da
 curva e o peso dado a variável \textit{PesoTemporalDoPacote}, respectivamente.
 
 Após calcular o peso de cada pacote do termo, o valor temporal de um termo pode ser
-descrito através das seguintes funções matemáticas, onde cada termo ``T'', possui uma
-lista de pacotes ``P'', onde essa lista possui um tamanho ``T''.
+descrito através das seguintes funções matemáticas, onde cada termo $T$, possui uma
+lista de pacotes $P$, onde essa lista possui um tamanho $N$.
 
 $T = \{P_1, P_2, ..., P_N\}$
 \\
 
-Além disso, cada pacote ``N'' possui um peso ``w'' com valores entre 0 e 1. Esse peso
-é definido pela função W(P), que foi previamente explicada na Seção
-\ref{sec:contexto_temporal}
+Além disso, cada pacote em $P$ possui um peso $w$ com valores entre 0 e 1.
+Esse peso é definido pela função W(P), que se trata do peso do pacote
+apresentado na Equação \ref{eq:peso_pacote}
 
 $W(Pi) = w_i , \quad 0 <= w_i <= 1$
 \\
 
 Aplicando essa função para cada pacote do termo é formada a lista dos pesos
-dos pacotes. Essa lista é então ordenada, gerando a lista
-dos pesos ordenados theta ``$\theta$''.
+dos pacotes.
 
-$sort(\{w_1, w_2, ..., w_n\}) = \{\theta_1, \theta_2, ..., \theta_n\}$
+$\{w_1, w_2, ..., w_n\}$
 \\
 
-Para calcular o peso do termo total, são utilizados os cinco maiores pesos de pacote
-associados ao mesmo, ou seja, se algum termo possui uma lista com tamanho ``N''
-menor do que cinco pacotes, onde ``N'' indica o tamanho da lista, para cada peso
-necessário para completar o valor total de cinco um pacotes, um novo peso
-é definido como igual ao peso anterior com um decréscimo de $\alpha$, onde
-através de experimentações, o valor de $\alpha$ foi definido como 0.05.
+O peso de um termo é então obtido pela média aritmética dos pesos de todos os
+pacotes que possuem o termo.
 
-$\theta_j = \theta_{j-1} - \alpha , \quad j = n+1, n+2, ..., 4$
-\\
+$ValorTemporalDoTermo = \frac{1}{n} \times \sum\limits_{i=1}^{n} w_i$
 
-Por fim, o valor temporal do termo é calculado pela média aritmética desses
-cinco pesos de pacote.
-
-$ValorTemporalDoTermo = \frac{1}{5} * \sum\limits_{i=1}^{5} \theta_i$
+O AppRecommender atribui o peso a um termo utilizando a técnica do TFIDF
+descrito no Apêndice \ref{ape:tfidf}, onde o peso de cada termo está relacionado
+com sua frequência nos pacotes.
 
 Com o valor temporal calculado, pode-se enfim multiplicar tal valor com o TFIDF
 obtido para o dado termo. Este processo é realizado para todos os termos usados

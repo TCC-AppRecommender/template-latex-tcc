@@ -468,14 +468,14 @@ PTP = \frac{TAC - TM}{TAT - TM}
 Onde:
 
 \begin{itemize}
-    \item \textbf{PTP:} Peso temporal do pacote, que se trata do valor obtido
-    pelo resultado da equação.
-    \item \textbf{TAC:} Tempo de acesso, é o tempo do último acesso a um pacote
+    \item \textbf{PTP:} É o peso temporal do pacote, que se trata do valor
+    obtido pelo resultado da equação.
+    \item \textbf{TAC:} É o tempo do ultimo acesso ao pacote, ou seja, quando
+    um pacote foi executado pela última vez, esse tempo é dado em segundos.
+    \item \textbf{TM:} É o tempo de modificação, se trata de quando o pacote
+    foi modificado, esse tempo também é dado em segundos.
+    \item \textbf{TAT:} É o tempo atual no qual o usuário executa a aplicação,
     em segundos.
-    \item \textbf{TM:} Tempo de modificação, se trata do tempo da última
-    modificação do pacote em segundos.
-    \item \textbf{TAT:} Tempo atual no qual o usuário executa a
-        aplicação em segundos.
 \end{itemize}
 
 
@@ -555,11 +555,19 @@ exponencial para obter controle quanto à suavidade da curva que relaciona
 a classificação no tempo com o peso do pacote, utilizando a seguinte função:
 
 \begin{equation} \label{eq:peso_pacote}
-\textbf{PesoPacote} = C \times \exp\left(({1 - PesoTemporalDoPacote}) \times {\lambda}\right)
+\textbf{PP} = C \times \exp\left(({1 - PTP}) \times {\lambda}\right)
 \end{equation}
 
-Onde C e alfa são constantes usadas para alterar a velocidade do decaimento da
-curva e o peso dado a variável \textit{PesoTemporalDoPacote}, respectivamente.
+Onde:
+
+\begin{itemize}
+    \item \textbf{PP:} É o peso do pacote, obtido pela curva de
+    decaimento exponencial.
+    \item \textbf{C e $\lambda$:} São constantes para alterar a velocidade do
+    decaimento da curva.
+    \item \textbf{PTP:} É o peso temporal do pacote, esse valor é obtido pela
+    Equação \ref{eq:peso_temporal_do_pacote}.
+\end{itemize}
 
 Após calcular o peso de cada pacote do termo, o valor temporal de um termo pode ser
 descrito através das seguintes funções matemáticas, onde cada termo $T$, possui uma

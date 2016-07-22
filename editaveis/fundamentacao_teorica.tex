@@ -402,14 +402,18 @@ relação a realidade.
 Para verificar um resultado, uma das métricas mais simples é a comparação item a
 item dos resultados esperados pelos resultados obtidos, que pode ser obtida por:
 
-$PorcentagemAcertos = \frac{NumVerdadeirosPositivos}{NumItensTeste}$
+\begin{equation}
+PA = \frac{NVP}{NIT}
+\end{equation}
 
 Onde:
 
 \begin{itemize}
-    \item \textbf{NumVerdadeirosPositivos:} Número de itens classificados
-        corretamento pelo algoritmo.
-    \item \textbf{NumItensTeste:} Números de itens contido no conjunto de dados de testes
+    \item \textbf{PA:} Porcentagem de acertos do algoritmo de aprendizagem
+    de máquina.
+    \item \textbf{NVP:} Numero de verdadeiros positivos, que se trata do
+    número de itens classificados corretamento pelo algoritmo.
+    \item \textbf{NIT:} Numero de itens de teste, ou seja, o números de itens contido no conjunto de dados de testes
 \end{itemize}
 
 Entretanto, essa métrica deve ser usada com cautela, pois caso um conjunto de

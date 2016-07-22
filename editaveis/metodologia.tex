@@ -614,20 +614,20 @@ para criar o perfil do usuário baseado em seus pacotes. Dessa forma, é
 necessário definir como cada pacote será apresentado para algoritmo, além de
 definir também a categoria de cada pacote.
 
-Para a categoria do pacote, definiu-se a seguinte escala de classificação baseada na
-fórmula proposta na Seção Contexto Temporal \ref{sec:contexto_temporal}:
+Para a categoria do pacote, definiu-se a seguinte escala de classificação
+baseada na fórmula da Equação \ref{eq:peso_temporal_do_pacote}.
 
 \begin{table}[h]
 \centering
-\begin{tabular}{cc}
+\caption{Escala para classificação de um pacote}
+\begin{tabular}{lc}
 \hline
 \rowcolor[HTML]{EFEFEF}
 {Escala} & {Valores} \\ \hline
 {ReallyUseful(RU)}  & PesoTemporalDoPacote >= 0.8                  \\ \hline
-{Usefull(U)}   & PesoTemporalDoPacote >= 0.7                  \\ \hline
-{NotUsefull(NU)}   & PesoTemporalDoPacote >= 0.5                  \\ \hline
+{Usefull(U)}   & PesoTemporalDoPacote >= 0.7                       \\ \hline
+{NotUsefull(NU)}   & PesoTemporalDoPacote >= 0.5                   \\ \hline
 \end{tabular}
-\caption{Escala para classificação de um pacote}
 \label{tab:classificacao_pacotes}
 \end{table}
 

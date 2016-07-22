@@ -13,7 +13,7 @@
   \section{Trabalhos relacionados}
 
   Durante a pesquisa deste trabalho, encontrou-se alguns trabalhos que também estudam recomendação baseada em contexto, sendo o tempo um dos
-  principais atributos do contexto. Em \cite{lee2008time}, o tempo é usado para gerar avaliação implícita para um histórico de
+  principais atributos do contexto. Para \cite{lee2008time}, o tempo é usado para gerar avaliação implícita para um histórico de
   compras de diversos usuários. Tal abordagem foi comparada com um modelo de recomendação colaborativa tradicional, usando avaliação explícita dos usuários,
   sem considerar o tempo. Segundo a pesquisa, percebeu-se um aumento de precisão
   quando o tempo foi usado como parâmetro do perfil de usuário.
@@ -28,10 +28,10 @@
   \cite{ding2005time}. Este modelo foi proposto no artigo de \cite{basile2015modeling}, onde basicamente itens mais antigos não tem seu peso puramente descartado, e sim caso
   seu conteúdo seja diferente dos novos itens sendo recomendados. Baseado nos
   testes realizados, percebeu-se que criar o modelo de usuário dessa forma apresenta vantagens sobre
-  a forma mais padrão de se usar o tempo para recomendação. Entretanto, o trabalho ainda precisa ser testado em bancos de dados de maior escala para poder aferir melhor
+  a forma padrão de se usar o tempo para recomendação. Entretanto, o trabalho ainda precisa ser testado em bancos de dados de maior escala para poder aferir melhor
   seus resultados
 
-  Por fim, um famoso trabalho que usa o contexto de tempo para recomendação se dá na pesquisa \cite{koren2010collaborative}, que apresenta o modelo de recomendação
+  Por fim, um famoso trabalho que usa o contexto de tempo para recomendação se dá na pesquisa de \cite{koren2010collaborative}, que apresenta o modelo de recomendação
   vencedor do concurso criado pelo \textit{Netflix} para aumentar a acurácia de suas recomendações de filme. A pesquisa citada usa como diferencial a análise do tempo da avaliação
   dos filmes realizados pelos usuários em um modelo similar a pesquisa de \cite{basile2015modeling}
 
@@ -45,7 +45,7 @@
   \begin{center}
   \textit{É possível melhorar a recomendação baseada em conteúdo de pacotes para
   usuários de sistemas GNU/Linux levando em consideração o contexto temporal de
-  uso dos seus pacotes já instalados ?}
+  uso dos seus pacotes já instalados}
   \end{center}
 
   Vale ressaltar que para responder esta questão problema, um conjunto de
@@ -65,7 +65,7 @@
   Considerando a questão problema definida, as seguintes hipóteses foram definidas
   como forma de validação:
 
-  \begin{itemize} \item \textit{\textbf{h1:Ao aumentar o peso de pacotes
+  \begin{itemize} \item \textit{\textbf{h1: Ao aumentar o peso de pacotes
   recentemente usados no sistema, o perfil do usuário gerado será mais preciso,
   ocasionando assim uma recomendação mais apropriada.}} Ao usar o tempo de uso dos
   pacotes no sistema, e priorizar os pacotes mais recentemente usados na criação
@@ -133,10 +133,14 @@
   fazendo assim que o mesmo se encaixe nos pré-requisitos levantados para o
   projeto.
 
-  O projeto também utiliza tanto estratégias offline e testes de usuário para
-  validar as recomendações implementadas, sendo que as estratégias offline têm como
-  base a análise de curvas ROC, enquanto os testes de usuário visam analisar
-  principalmente a precisão e novidade das recomendações.
+  O projeto também utiliza tanto estratégias \textit{offline} e testes de
+  usuário para validar as recomendações implementadas, sendo que as estratégias
+  \textit{offline} têm como base a análise de curvas ROC
+  (\textit{Receiver Operator Characteristic Curve}), que analisa a taxa de
+  itens recomendados pelo sistema e que estão presentes nos dados de teste,
+  sobre a taxa de itens não recomendados mas que estão presentes nos dados de
+  teste, enquanto os testes de usuário visam analisar principalmente a precisão
+  e novidade das recomendações.
 
   A licença do \textit{AppRecommender} é GNU GPL e o projeto está disponível em repositório
   público, permitindo assim que qualquer pessoa possa visualizar o código fonte e
@@ -144,7 +148,7 @@
   repositório de projetos Github \footnote{\url{https://github.com/tassia/AppRecommender}}.
 
   As modificações propostas nesta pesquisa foram realizadas em uma cópia local do
-  mesmo, sendo essa mantida pelos pesquisadores deste trabalho no Github \footnote{\url{https://github.com/TCC-AppRecommender/AppRecommender}}
+  mesmo, sendo essa mantida pelos pesquisadores deste trabalho no Github \footnote{\url{https://github.com/TCC-AppRecommender/AppRecommender}}.
 
   \section{Coleta de dados}
 

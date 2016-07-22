@@ -462,18 +462,19 @@ Com isso dito, a informação temporal de cada pacote será obtida pela seguinte
 fórmula:
 
 \begin{equation} \label{eq:peso_temporal_do_pacote}
-PesoTemporalDoPacote = \frac{TempoAcesso - TempoModificação}{TempoAtual -
-TempoModificação}
+PTP = \frac{TAC - TM}{TAT - TM}
 \end{equation}
-
 
 Onde:
 
 \begin{itemize}
-    \item \textbf{TempoAcesso:} Tempo de último acesso do pacote em segundos.
-    \item \textbf{TempoModificação:} Tempo de última modificação do pacote em
-        segundos.
-    \item \textbf{TempoAtual:} Tempo atual no qual o usuário executa a
+    \item \textbf{PTP:} Peso temporal do pacote, que se trata do valor obtido
+    pelo resultado da equação.
+    \item \textbf{TAC:} Tempo de acesso, é o tempo do último acesso a um pacote
+    em segundos.
+    \item \textbf{TM:} Tempo de modificação, se trata do tempo da última
+    modificação do pacote em segundos.
+    \item \textbf{TAT:} Tempo atual no qual o usuário executa a
         aplicação em segundos.
 \end{itemize}
 

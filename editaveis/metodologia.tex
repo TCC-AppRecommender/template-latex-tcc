@@ -170,28 +170,28 @@
   Lista de nome dos pacotes válidos &
   Esta lista irá ser usada na construção de um índice de busca
   usado para buscar os pacotes que podem ser recomendados &
-  Coleta automatizada via script \\
+  Coleta automatizada via \textit{script} \\
   \hline
   Índice de busca para os pacotes do usuário &
   Usado tanto para estratégias de recomendação por conteúdo,
   colaborativas e híbridas &
-  Criação automatizada via script\\
+  Criação automatizada via \textit{script} \\
   \hline
   Debtags válidas &
   Usado para filtrar os pacote que serão usados na
   recomendação &
-  Coleta automatizada via script\\
+  Coleta automatizada via \textit{script} \\
   \hline
-  Submissões do popularity contest &
+  Submissões do \textit{popularity contest} &
   Usada para criar um índice de busca contendo as submissões do
   popularity-contest de todos os usuários que possuem uma submissão &
   Dados precisam ser manualmente coletados \\
   \hline
-  Indíce de busca para submissões do popularity contest &
+  Indíce de busca para submissões do \textit{popularity contest} &
   Usado tanto para a realização de recomendações colaborativas e
   híbridas, assim como para a execução das coletas de opinião usados
   para avaliar as soluções desenvolvidas. &
-  Criação automatizada via script \\
+  Criação automatizada via \textit{script} \\
   \hline
   \end{tabularx}
   \end{table}
@@ -210,17 +210,14 @@ de submissões do \textit{popularity-contest}.
 Uma observação também importante se dá na forma como a lista de pacotes válidos
 é obtida, pois a mesma é obtida conforme as configurações do \textit{sources.list} do usuário. Este arquivo é responsável
 por dizer ao gerenciador de pacotes onde o mesmo irá encontrar os arquivos binários ou
-arquivos fonte dos pacote. A Figura \ref{fig:source_list} mostra o conteúdo deste arquivo:
-\\
+arquivos fonte dos pacote. O código abaixo mostra o conteúdo deste arquivo:
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\textwidth]{figuras/source_list.eps}
-  \caption{Arquivo source.list de um sistema Debian}
-  \label{fig:source_list}
-\end{figure}
+\begin{lstlisting}
+  deb http://ftp.us.debian.org/debian/ sid main
+  deb-src http://ftp.us.debian.org/debian/ sid main
+\end{lstlisting}
 
-Conforme visto na Figura \ref{fig:source_list}, pode-se ver que a mesma indica
+Conforme visto no código acima, pode-se ver que o mesmo indica
 pelo rótulo \textit{deb} onde irá puxar os arquivos binários e pelo
 \textit{deb-src} onde o mesmo irá puxar os arquivos fonte. Além disso, após o
 link de cada um dos rótulos, existem também atributos, sendo eles a distribuição
@@ -229,10 +226,10 @@ usando a distribuição \textit{unstable} do Debian. Além disso, o Debian pode 
 tipos de pacotes, sendo eles:
 
 \begin{itemize}
-    \item \textbf{Main:} pacotes totalmente software livre;
-    \item \textbf{Contrib:} pacotes software livre, mas que dependem de
+    \item \textit{\textbf{Main:}} pacotes totalmente software livre;
+    \item \textit{\textbf{Contrib:}} pacotes software livre, mas que dependem de
         softwares não livres;
-    \item \textbf{Non-free:} pacotes que não são software livre;
+    \item \textit{\textbf{Non-free:}} pacotes que não são software livre;
 \end{itemize}
 
 Sendo assim, como a lista de pacotes válidos é obtida localmente, a mesma irá ser baseada tanto na
@@ -241,9 +238,10 @@ distribuição que o usuário usa, como dos componentes que o mesmo possui no se
 
 Por fim, vale ressaltar que foi identificado que as recomendações
 colaborativas dependiam também de um serviço fornecido pela infra-estrutura do
-Debian, chamado de \textit{Debian Data Export}, que era usado para facilitar a criação de
-queries no \textit{Ultimate Debian Database}. Entretanto, este serviço se encontra
-atualmente fora do ar, e, por isso, não é considerado na execução da pesquisa.
+Debian, chamado de \textit{Debian Data Export}, que era usado para facilitar a
+criação de \textit{queries} no \textit{Ultimate Debian Database}. Entretanto,
+este serviço se encontra atualmente fora do ar, e, por isso, não é considerado
+na execução da pesquisa.
 
 \subsection{Usuários} \label{sec:coleta_dados_usuario}
 
@@ -291,7 +289,7 @@ usuário. A Figura \ref{fig:control_pacote} mostra um exemplo desse arquivo.
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.9\textwidth]{figuras/control_pacote.eps}
-  \caption{Arquivo control de um pacote Debian}
+  \caption{Exemplo de um arquivo control de um pacote Debian}
   \label{fig:control_pacote}
 \end{figure}
 
@@ -309,8 +307,7 @@ comando.
 O processo de criação de \textit{Debtags} é manual, ou seja, um usuário deve associar uma
 \textit{Debtag} a um pacote e a comunidade Debian deve verificar se aquela
 \textit{Debtag} sugerida condiz com a aplicação em si. Atualmente, existem 45432 pacotes
-categorizados com Debtags \footnote{Dados
-coletados dia 06/12/2015}.
+categorizados com Debtags \footnote{Dados coletados no dia 06/12/2015}.
 
 Por fim, vale lembrar que nem todas as \textit{Debtags} são consideradas significativas
 para o processo de recomendação, sendo que uma filtragem é realizada visando
@@ -347,7 +344,7 @@ descrição com \textit{Debtags} no perfil do usuário gerado.
 
 \subsection{Recomendação colaborativa}
 
-O principal dado usado na recomendação colaborativa são as submissões do
+Os principais dados usados na recomendação colaborativa são as submissões do
 \textit{popularity-contest}. O \textit{popularity-contest} é um sistema usado pelo Debian para
 acompanhar o uso dos pacotes sendo mantidos pelo sistema e ajudar também na
 escolha dos pacotes que devem ser selecionados para o CD de instalação do
@@ -363,18 +360,20 @@ pacotes e o tempo de acesso e modificação de acada um deles. A Figura
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.9\textwidth]{figuras/submissao_popcon.eps}
-  \caption{Arquivo de submissão para o popularity-contest}
+  \caption{Exemplo de um arquivo de submissão para o
+    \textit{popularity-contest}}
   \label{fig:submissao_popcon}
 \end{figure}
 
 Conforme pode ser observado na Figura \ref{fig:submissao_popcon}, após a
-primeira linha de cabeçalho, cada linha da submissão possui o seguinte formato:
+primeira linha de cabeçalho, cada linha da submissão possui o formato descrito
+na Tabela \ref{tab:submissao_popcon}.
 
 \begin{table}[h!]
 \centering
 \newcommand\T{\rule{0pt}{2.8ex}}
 \newcommand\B{\rule[-1.8ex]{0pt}{0pt}}
-\begin{tabularx}{15cm}{| c | X |}
+\begin{tabularx}{15cm}{| l | X |}
 \hline
 \rowcolor[HTML]{EFEFEF}
 {\textbf{Campo}} & \textbf{Descrição} \\ \hline
@@ -416,7 +415,7 @@ A saída deste programa pode ser visualizada na Figura \ref{fig:comando_stat}.
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.9\textwidth]{figuras/comando_stat.eps}
-  \caption{Saída do comando \textit{stat} para um dado software}
+  \caption{Exemplo de saída do comando \textit{stat} para o executável do vim}
   \label{fig:comando_stat}
 \end{figure}
 
@@ -424,10 +423,10 @@ Pode ser visto na Figura \ref{fig:comando_stat} que o comando exibe os seguintes
 atributos de tempo de um dado arquivo \cite{1_haas}:
 
 \begin{itemize}
-    \item \textbf{Access:} Última vez que um arquivo foi acessado, ou seja, a
+    \item \textit{\textbf{Access:}} Última vez que um arquivo foi acessado, ou seja, a
         última vez que seu conteúdo foi de fato acessado.
-    \item \textbf{Modify:} Última vez que conteúdo de um arquivo foi modificado.
-    \item \textbf{Change:} Última vez que o status de um arquivo foi modificado,
+    \item \textit{\textbf{Modify:}} Última vez que conteúdo de um arquivo foi modificado.
+    \item \textit{\textbf{Change:}} Última vez que o status de um arquivo foi modificado,
         como mudar as permissões do arquivo ou seu dono, ou seja, modificar o
         \textit{inode} do arquivo.
 \end{itemize}
@@ -436,27 +435,28 @@ Dessa forma, pode ser visto que o campo \textit{Access} de um arquivo é um dos
 principais indicadores de uso de um pacote. Entretanto, o sistema de arquivos
 usado pode apresentar uma
 restrição neste campo. Isso acontece devido a como o sistema de arquivos é
-configurado, pois algumas flags especiais podem ser usadas para alterar como
+configurado, pois algumas \textit{flags} especiais podem ser usadas para alterar como
 esse campo é preenchido \footnote{https://wiki.debian.org/fstab}:
 
 \begin{itemize}
-    \item \textbf{noatime:} O sistema de arquivos não irá computar o tempo de
+    \item \textit{\textbf{noatime:}} O sistema de arquivos não irá computar o tempo de
         acesso do arquivo.
-    \item \textbf{stricatime:} O sistema de arquivos irá sempre alterar o tempo
+    \item \textit{\textbf{stricatime:}} O sistema de arquivos irá sempre alterar o tempo
         de acesso do arquivo.
-    \item \textbf{relatime:} O sistema de arquivos só irá computar o tempo de
+    \item \textit{\textbf{relatime:}} O sistema de arquivos só irá computar o tempo de
         acesso de um arquivo se o valor desse campo for menor que os valores dos
-        campos \textit{Modify} e \textit{Change}. Esse opção é default desde
+        campos \textit{Modify} e \textit{Change}. Esse opção é \textit{default} desde
         o kernel 2.6.30. Entretanto, novas adições foram feitas, permitindo que
         o tempo de acesso seja modificado se o mesmo for mais antigo que um dia.
 \end{itemize}
 
 O uso do relatime passou a ser default para montar o sistema de arquivos devido
-aos problemas de perfomance ocasionados pelo atime. Segundo Ingo Molnar, "atualizar o valor
-de atime é de longe uma das maiores deficiências de performance que o Linux possui
-hoje" \cite{3_corbet_2007}. Sendo assim, as informações de contexto que serão
-usadas, tempo de acesso, modificação e mudança, são aproximações e não
-refletem perfeitamente o contexto de uso dos pacotes.
+aos problemas de perfomance ocasionados pelo atime. Segundo Ingo Molnar,
+``atualizar o valor de atime é de longe uma das maiores deficiências de
+performance que o Linux possui hoje'' \cite{3_corbet_2007}. Sendo assim, as
+informações de contexto que serão usadas, tempo de acesso, modificação e
+mudança, são aproximações e não refletem perfeitamente o contexto de uso dos
+pacotes.
 
 Com isso dito, a informação temporal de cada pacote será obtida pela seguinte
 fórmula:
@@ -495,21 +495,21 @@ na Figura \ref{fig:control_pacote}. O Debian permite que cada pacote tenha
 prioridade classificada mediante os seguintes valores:
 
 \begin{itemize}
-    \item \textbf{Required:} Pacotes necessários para o funcionamento básico do
+    \item \textit{\textbf{Required:}} Pacotes necessários para o funcionamento básico do
         sistema
-    \item \textbf{Important:} Pacotes esperados em qualquer distribuição Unix
-    \item \textbf{Standard:} Pacotes que fornecem alguns serviços básicos
+    \item \textit{\textbf{Important:}} Pacotes esperados em qualquer distribuição Unix
+    \item \textit{\textbf{Standard:}} Pacotes que fornecem alguns serviços básicos
         esperados, como aplicações para mandar email, como o mutt.
-    \item \textbf{Optional:} Pacotes que fornecem serviços que não se encaixam
+    \item \textit{\textbf{Optional:}} Pacotes que fornecem serviços que não se encaixam
         em nenhuma das categorias mencionadas acima.
-    \item \textbf{Extra:} Pacotes que conflitam com outros de hierarquia maior
+    \item \textit{\textbf{Extra:}} Pacotes que conflitam com outros de hierarquia maior
         ou que possuem dependências especiais que não permitem que os mesmos
         sejam categorizados como \textit{Optional}.
 \end{itemize}
 
 Baseado nestas prioridades, resolveu-se por retirar do perfil do usuário
-qualquer pacote com prioridade \textit{"Important"} \textit{"Standard"}
-\textit{"Required"}. Vale ressaltar que algumas linguagens de programação
+qualquer pacote com prioridade \textit{``Important''} \textit{``Standard''}
+\textit{``Required''}. Vale ressaltar que algumas linguagens de programação
 possuem uma das prioridades sendo filtradas, mas um processamento adicional é
 realizado para garantir que os pacotes relacionados a linguagens de programação
 continuem no perfil do usuário.

@@ -33,8 +33,8 @@ pessoa foram analisadas três estratégias de recomendação, sendo elas:
     devem ser recomendados.
 \end{itemize}
 
-Dentre as estratégias a `cbh` já estava implementada no AppRecommender, e as
-estratégias `cbtm` e `cbml` se tratam das estratégias implementadas afim de
+Dentre as estratégias a \textit{cbh} já estava implementada no AppRecommender, e as
+estratégias \textit{cbtm} e \textit{cbml} se tratam das estratégias implementadas afim de
 testar as hipóteses desta pesquisa.
 
 Para cada estratégia foram selecionadas as 10 melhores recomendações
@@ -54,12 +54,12 @@ A coleta de dados apresentou os resultados apresentados na Figura
 \end{figure}
 
 Analisando os dados coletados pode-se observar que os indices de recomendações
-ruins das estratégias `cbh` e `cbml` foram maiores que os índices da estratégia
-`cbtm`, e também é notável a diferença entre recomendações úteis e surpresas
-boas, pois a estratégia `cbtm` possui 45 recomendações nessas classificações
-enquanto as estratégias `cbml` e `cbh` possuem 35.
+ruins das estratégias \textit{cbh} e \textit{cbml} foram maiores que os índices da estratégia
+\textit{cbtm}, e também é notável a diferença entre recomendações úteis e surpresas
+boas, pois a estratégia \textit{cbtm} possui 45 recomendações nessas classificações
+enquanto as estratégias \textit{cbml} e \textit{cbh} possuem 35.
 
-Através dos dados coletados observa-se que mesmo a estratégia `cbtm` possuindo
+Através dos dados coletados observa-se que mesmo a estratégia \textit{cbtm} possuindo
 um pouco de destaque, todas as estratégias aprensentaram um índice muito alto
 de recomendações ruins
 
@@ -79,7 +79,7 @@ precisão, novidade e ruim.
 Analisando a precisão e a novidade de cada recomendação, na Figura
 \ref{fig:metricas_segundo_experimento}, observa-se que a estratégia que
 apresentou melhores resultados embora por pouca diferença, foi a estratégia
-`cbtm`, fato que pode demonstrar que a estratégia determinística se saiu melhor
+\textit{cbtm}, fato que pode demonstrar que a estratégia determinística se saiu melhor
 que a estratégia de aprendizado de máquina, para esses usuários que
 participaram da primeira coleta. A Tabela \ref{tab:resultado_p1} resume os
 resultados das métricas encontradas:
@@ -97,8 +97,9 @@ resultados das métricas encontradas:
     \label{tab:resultado_p1}
 \end{table}
 
-Através dos dados coletados foi analisado a métrica \textit{PorcentagemAcertos}
-para a estratégia `cbml` através da validação cruzada, onde o resultado dessa
+Através dos dados coletados foi analisado a métrica de porcentagem de acertos,
+que é descrita na Equação \ref{eq:porcentagem_acertos}, para a estratégia
+\textit{cbml} através da validação cruzada, onde o resultado dessa
 métrica é de apenas 22,87\%, resultado obtido pela média do valor apresentado
 por essa métrica para cada usuário, esse valor de 22,87\% indica que os
 resultados das recomendações não são exatamente o que se espera pela técnica
@@ -265,16 +266,16 @@ pacote instalados pelo \textit{rvm}, o que causa a redundância.
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.9\textwidth]{figuras/segundo_experimento_cross_validation.eps}
-    \caption{Métrica \textit{PorcentagemAcertos} obtida via cross validation para
-    cada estratégia de aprendizado de máquina}
+    \caption{Métrica de porcentagem de acertos obtida via cross validation}
   \label{fig:segundo_experimento_cross_validation}
 \end{figure}
 
 Por fim, é necessário entender por que a melhoria encontrada foi de 3\%-5\% em
 relação as estratégias baseadas em conteúdo já implementadas pelo
-\textit{AppRecommender}. O gráfico da Figura \ref{fig:segundo_experimento_cross_validation}
-mostra a média da métrica de acurácia \textit{PorcentagemAcertos}, definida na Seção
-\ref{subsec:validacao_cruzada}, para cada estratégia de aprendizado de máquina.
+\textit{AppRecommender}. O gráfico da Figura
+\ref{fig:segundo_experimento_cross_validation} mostra a média da métrica de
+acurácia da porcentagem de acertos, definida na Equação
+\ref{eq:porcentagem_acertos}, para cada estratégia de aprendizado de máquina.
 Tal gráfico mostra que nenhuma estratégia teve uma média muito alta de acurácia,
 sendo que acredita-se que a melhora encontrada por essas estratégias foi devido a
 pré-filtragem de pacotes e não para a pós filtragem dos mesmos. Além disso, a
